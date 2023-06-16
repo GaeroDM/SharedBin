@@ -1,18 +1,20 @@
 # BOT para testar comando IF
 
 print('Bebeu água?')
-respostaAgua = input()
-while respostaAgua == 'sim' or 'não':
-        if respostaAgua != 'sim' or 'nao':
-                print('sim ou não, porra')
-                respostaAgua = input()
-        if respostaAgua == 'sim':
-            print('Muito bem! É importante se manter hidratado!')
-            exit()
-        if respostaAgua == 'não':
-            print('Tá com sede?')
-            break
+respostaAgua = input() #Testar se funciona com a variável dentro
 
+if respostaAgua == 'sim':
+        print('Muito bem! É importante se manter hidratado!')
+        exit()
+elif respostaAgua == 'não':
+        print('Tá com sede?')
+        
+else:
+        while respostaAgua != 'sim' or respostaAgua!= 'não':
+                print('responda apenas com sim ou não')
+                respostaAgua = input()
+                if respostaAgua == 'sim' or 'não':
+                        break
 respostaSede = input()
 
 if respostaSede == 'to':
