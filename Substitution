@@ -1,0 +1,89 @@
+#include <cs50.h>
+#include <ctype.h>
+#include <stdio.h>
+#include <string.h>
+
+int length;
+string plaintext;
+bool unique(string key);
+void cypher(string input, string key);
+
+int main(int argc, string argv[])
+{
+    string key = argv[1];
+    if (argc != 2)
+    {
+        printf("usage: ./substitution key\n");
+        return 1;
+    }
+    else if (!unique(key))
+    {
+        printf("Key must contain 26 unique characters\n");
+        return 1;
+    }
+    else
+    {
+        plaintext = get_string("Plaintext: ");
+        cypher(plaintext, key);
+    }
+}
+
+bool unique(string key)
+{
+    length = strlen(key);
+    if (length != 26)
+    {
+        return false;
+    }
+    for (int i = 0; i < length; i++)
+    {
+        key[i] = toupper(key[i]);
+    }
+    for (int i = 0; i < length; i++)
+    {
+        if (!isalpha(key[i]))
+        {
+            return false;
+        }
+        for (int j = i + 1; j < length; j++)
+        {
+            if (key[i] == key[j])
+            {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+void cypher(string input, string key)
+{
+    length = strlen(input);
+    int index;
+    char ciphertext[length + 1];
+    for (int i = 0; i < length; i++)
+    {
+        if (islower(input[i]))
+        {
+            index = input[i] - 'a';
+            ciphertext[i] = key[index];
+            if (isupper(ciphertext[i]))
+            {
+                ciphertext[i] += 32;
+            }
+        }
+        else if (isupper(input[i]))
+        {
+            index = input[i] - 'A';
+            ciphertext[i] = key[index];
+            if (islower(ciphertext[i]))
+            {
+                ciphertext[i] -= 32;
+            }
+        }
+        else
+            ciphertext[i] = input[i];
+    }
+    ciphertext[length] = '\0';
+    printf("ciphertext: %s\n", ciphertext);
+}
